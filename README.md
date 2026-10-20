@@ -28,6 +28,10 @@ An internet connection is needed for the first download and after a plugin updat
 
 KS continues to control when the screensaver starts and stops. To stop using this plugin, choose another screensaver and disable **Bing Wallpapers**.
 
+## Network access
+
+The plugin downloads the photo list and images directly from `https://www.bing.com`. Requests include the selected Bing region and photo count. The plugin does not send Home Assistant data or collect analytics.
+
 ## Updates
 
 To update, open the installed plugin's repository entry in Plugin Manager, review the latest release and install the update.

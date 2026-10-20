@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.0.1
+
+- Explain network access in the installation README for Community Plugins review.
+- No changes to plugin behavior or saved settings.
+
 ## 1.0.0
 
 - Promote the plugin to 1.0.0 after a successful kiosk test of 0.4.0.
