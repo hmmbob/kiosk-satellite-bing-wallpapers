@@ -61,7 +61,7 @@ The build produces the plugin ZIP, a matching manifest and SHA-256 checksum unde
 
 ## Publishing
 
-The repository uses the [official KS release workflow](https://github.com/jxlarrea/kiosk-satellite-plugins/blob/2260f801f047dab06a1ca0c1c4f7bec926cb73b1/.github/workflows/build.yml).
+The repository uses the [official KS release workflow](https://github.com/jxlarrea/kiosk-satellite-plugins/blob/2260f801f047dab06a1ca0c1c4f7bec926cb73b1/.github/workflows/build.yml), with the checkout and Java setup Actions updated to supported versions.
 
 1. Update the source manifest version and changelog, run the tests, and commit the source.
 2. Tag that commit, for example `v0.4.0`, and publish a stable GitHub release for that tag.

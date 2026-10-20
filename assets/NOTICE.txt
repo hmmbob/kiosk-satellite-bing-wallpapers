@@ -41,4 +41,5 @@ This is an independent community plugin, not a Microsoft product or endorsement.
 Build helper changes also include generated English runtime text validation.
 Release workflow from the official KS plugin template:
 Revision 2260f801f047dab06a1ca0c1c4f7bec926cb73b1.
+Modified: updated checkout and Java setup Actions to supported versions.
 SDK source remains at the pinned revision above.
