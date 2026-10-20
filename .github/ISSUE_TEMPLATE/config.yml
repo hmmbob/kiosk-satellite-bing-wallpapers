@@ -1,0 +1,5 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Installation and settings
+    url: https://github.com/hmmbob/kiosk-satellite-bing-wallpapers#readme
+    about: Read the installation instructions and available settings.

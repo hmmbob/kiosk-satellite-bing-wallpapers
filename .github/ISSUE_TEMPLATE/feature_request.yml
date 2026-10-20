@@ -1,0 +1,26 @@
+name: Improvement request
+description: Suggest an improvement to the plugin.
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Please search existing issues first. For larger changes, open an issue
+        before writing code so we can discuss whether the change fits the plugin.
+  - type: textarea
+    id: problem
+    attributes:
+      label: What would you like to do?
+      description: Describe the problem or use case, including who would benefit.
+    validations:
+      required: true
+  - type: textarea
+    id: suggestion
+    attributes:
+      label: Suggested improvement
+      description: Describe how you would like it to work.
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives or additional context (optional)

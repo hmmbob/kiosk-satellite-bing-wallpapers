@@ -42,4 +42,6 @@ If you installed the plugin from GitHub, you must uninstall it before installing
 
 See [developer notes](docs/DEVELOPMENT.md) for building, testing and cache behavior.
 
+Bug reports and focused pull requests are welcome. Please read [Contributing](CONTRIBUTING.md) before proposing a change.
+
 The source code uses [Apache 2.0](LICENSE). The Bing icon comes from [Home Assistant Brands](https://github.com/home-assistant/brands/tree/70f4b4c618d2966e40e8083e693a42794c11d3a8/custom_integrations/bing_wallpaper); it is a Microsoft brand asset and is not covered by this project's Apache license. Bing photos retain their own copyright. This is an independent community plugin, not a Microsoft product. See [credits](assets/NOTICE.txt).

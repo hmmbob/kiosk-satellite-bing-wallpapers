@@ -1,0 +1,63 @@
+name: Bug report
+description: Report a problem with the Bing Wallpapers plugin.
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Please search existing issues before opening a new one.
+        Share only information needed to understand the problem. Do not post
+        passwords, tokens, configuration exports or private photo URLs.
+  - type: input
+    id: plugin-version
+    attributes:
+      label: Plugin version
+      placeholder: "For example: 0.4.0"
+    validations:
+      required: true
+  - type: input
+    id: ks-version
+    attributes:
+      label: Kiosk Satellite version
+      description: Find this in KS Settings or Remote Admin's About tab.
+    validations:
+      required: true
+  - type: input
+    id: device
+    attributes:
+      label: Device and Android version
+      description: Include the device model and Android version if known.
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: What happened?
+      description: Describe the problem and how often it occurs.
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: What did you expect?
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      description: List the steps, or explain when it happens if you cannot reproduce it reliably.
+      placeholder: |
+        1. ...
+        2. ...
+    validations:
+      required: true
+  - type: textarea
+    id: settings
+    attributes:
+      label: Relevant settings
+      description: For example, Bing region, number of photos, time per photo or downloaded photo width. Do not paste a configuration export.
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Screenshots or logs (optional)
+      description: Add a screenshot or a short log excerpt around the problem if available. Remove private information first.
