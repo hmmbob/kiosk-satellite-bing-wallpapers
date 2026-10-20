@@ -1,0 +1,117 @@
+{
+  "schemaVersion": 1,
+  "id": "kiosk-satellite-bing-wallpapers",
+  "name": "Bing Wallpapers",
+  "version": "0.4.0",
+  "apiVersion": 1,
+  "minAndroidSdk": 24,
+  "entryClass": "kiosk.plugins.bing.BingPlugin",
+  "description": "Show a slideshow of recent Bing photos.",
+  "author": "hmmbob",
+  "license": "Apache-2.0",
+  "capabilities": [
+    "screensaver",
+    "host.read"
+  ],
+  "settings": [
+    {
+      "key": "count",
+      "type": "number",
+      "title": "Number of photos",
+      "default": 7,
+      "min": 1,
+      "max": 8,
+      "step": 1,
+      "group": "Photos",
+      "description": "Choose how many photos the slideshow includes: 1 to 8. Bing may have fewer available."
+    },
+    {
+      "key": "market",
+      "type": "string",
+      "title": "Bing region",
+      "default": "en-US",
+      "group": "Photos",
+      "description": "The region affects the photos and caption language. Different regions may show the same photos. Captions may be in English.",
+      "choices": "plugin"
+    },
+    {
+      "key": "refreshHours",
+      "type": "number",
+      "title": "Check for new photos every",
+      "default": 24,
+      "min": 1,
+      "max": 48,
+      "step": 1,
+      "unit": "h",
+      "group": "Photos",
+      "description": "Saved photos stay available without internet."
+    },
+    {
+      "key": "interval",
+      "type": "number",
+      "title": "Time per photo",
+      "default": 60,
+      "min": 5,
+      "max": 3600,
+      "step": 5,
+      "unit": "s",
+      "group": "Slideshow"
+    },
+    {
+      "key": "order",
+      "type": "string",
+      "title": "Photo order",
+      "default": "Newest first",
+      "group": "Slideshow",
+      "choices": "plugin"
+    },
+    {
+      "key": "fit",
+      "type": "string",
+      "title": "Fit to screen",
+      "default": "Fill screen",
+      "group": "Slideshow",
+      "description": "“Fill screen” may crop the edges. “Show whole photo” may leave black bars.",
+      "choices": "plugin"
+    },
+    {
+      "key": "caption",
+      "type": "boolean",
+      "title": "Show caption and photo credit",
+      "default": false,
+      "group": "Slideshow"
+    },
+    {
+      "key": "resolution",
+      "type": "select",
+      "title": "Downloaded photo width",
+      "default": "1280",
+      "options": [
+        "1280",
+        "1920"
+      ],
+      "group": "Slideshow",
+      "description": "Choose 1920 pixels for larger screens. A smaller photo width uses less data.",
+      "unit": "px"
+    }
+  ],
+  "commands": [
+    {
+      "id": "next",
+      "title": "Next photo"
+    },
+    {
+      "id": "refresh",
+      "title": "Check for new photos"
+    }
+  ],
+  "groups": [
+    {
+      "title": "Photos"
+    },
+    {
+      "title": "Slideshow"
+    }
+  ],
+  "icon": "icon.png"
+}

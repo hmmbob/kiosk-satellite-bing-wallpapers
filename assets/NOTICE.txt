@@ -1,0 +1,44 @@
+Bing Wallpapers for Kiosk Satellite
+
+This package includes work derived from the following Apache-2.0 projects:
+
+Kiosk Satellite plugin SDK / Hello World template
+https://github.com/jxlarrea/kiosk-satellite-plugins
+Revision be608a17e159f1df57635453e4f90595be7e26bc
+Copyright the respective Kiosk Satellite plugin SDK contributors.
+SDK and build helper sources are included in the source archive; SDK classes are
+compile-time dependencies and are not packaged in plugin.jar.
+Build helper change: javac explicitly uses UTF-8 for reproducibility on Windows.
+
+Google Photos Screensaver for Kiosk Satellite, Coffmad and contributors
+https://github.com/Coffmad/kiosk-satellite-google-photos
+Revision 30b819b7203675b5fb975d0d43c5fdfde6fe4cdd
+Json.java is adapted with package renaming and a nesting limit.
+Slides.java Base64 encoding is adapted for Android 7 compatibility.
+The lifecycle and renderer design were also consulted as examples.
+
+Host compatibility was inspected against Kiosk Satellite 2026.10.31:
+https://github.com/jxlarrea/kiosk-satellite
+Revision 049bd4f3a954b010ce461bc6d980fd1aea0f6fcd
+No KS host implementation is bundled.
+
+Additional reference, no code copied:
+https://github.com/ndesgranges/bing-wallpaper (MIT)
+
+The root LICENSE contains the Apache License, Version 2.0.
+Bing imagery is downloaded at runtime, not included in this package, and is not
+licensed under the source code's Apache license. Bing is a Microsoft trademark.
+
+
+Blue Bing icon (assets/icon.png)
+Unmodified image from Home Assistant Brands:
+https://github.com/home-assistant/brands/blob/70f4b4c618d2966e40e8083e693a42794c11d3a8/custom_integrations/bing_wallpaper/icon.png
+Microsoft brand asset. No Apache-2.0 or MIT license is asserted for this image.
+Microsoft retains rights in its logo and trademarks. Inclusion in Home Assistant
+Brands does not establish a general permission to reuse the logo.
+This is an independent community plugin, not a Microsoft product or endorsement.
+
+Build helper changes also include generated English runtime text validation.
+Release workflow from the official KS plugin template:
+Revision 2260f801f047dab06a1ca0c1c4f7bec926cb73b1.
+SDK source remains at the pinned revision above.

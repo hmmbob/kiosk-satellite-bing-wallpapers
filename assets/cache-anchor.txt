@@ -1,0 +1,2 @@
+Read-only anchor for locating this installation's private runtime-cache sibling.
+Never write downloaded images into assets: KS verifies all packaged assets.
