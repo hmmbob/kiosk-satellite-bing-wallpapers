@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.0.0
+
+- Promote the plugin to 1.0.0 after a successful kiosk test of 0.4.0.
+- Keep the slideshow behavior, plugin ID and saved settings unchanged.
+- Include the updated documentation and contribution guidelines.
+
 ## 0.4.0
 
 - First public release, with one English installation package.
