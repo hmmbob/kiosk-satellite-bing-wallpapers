@@ -32,8 +32,6 @@ KS continues to control when the screensaver starts and stops. To stop using thi
 
 To update, open the installed plugin's repository entry in Plugin Manager, review the latest release and install the update.
 
-Upgrading from a test version older than 0.3.1? Disable or remove the old plugin, then install and configure this release. Those older versions used a different plugin ID, so their settings will not transfer.
-
 ## Install from ZIP
 
 For local testing, download the plugin ZIP from [Releases](https://github.com/hmmbob/kiosk-satellite-bing-wallpapers/releases). In KS, open **Plugin Manager → Developer Tools → Install from ZIP**, select the ZIP without extracting it, and then enable the plugin.
