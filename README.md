@@ -28,7 +28,7 @@ Or search for `Bing Wallpapers` in **Settings > Plugin Manager > Browse plugins*
 2. Wait until the plugin reports that photos are available.
 3. Under **Screensaver**, choose **Slideshow (Bing Wallpapers)**.
 
-If the option is missing in the web interface, refresh the page once. KS 2026.10.31 does not update this list when a plugin adds a screensaver.
+KS 2026.10.33 and newer update the screensaver list automatically. On older versions, refresh the web page once if the option is missing.
 
 An internet connection is needed for the first download and after a plugin update. The plugin's settings and messages are in English. The Bing region controls the photo selection and can affect caption language.
 
