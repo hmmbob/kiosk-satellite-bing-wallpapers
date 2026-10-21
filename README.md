@@ -2,17 +2,31 @@
 
 ![Bing icon](assets/icon.png)
 
-Show recent Bing photos as a slideshow on your kiosk. Choose how many photos to show and how long each stays on screen. Saved photos remain available when your internet connection drops. Old photos are removed automatically.
+Show recent Bing photos as a screensaver slideshow on your kiosk. Choose how many photos to show and how long each stays on screen. Saved photos remain available when your internet connection drops. Old photos are removed automatically.
 
-## Install
+## Installation
 
 Requires Android 7 or newer and [Kiosk Satellite](https://kiosksatellite.com/) with plugin support. Compatibility was checked against KS 2026.10.31.
 
-1. Open **Plugin Manager** in Kiosk Satellite and choose **Install from a GitHub repository**.
-2. Enter `https://github.com/hmmbob/kiosk-satellite-bing-wallpapers`.
-3. Review the plugin details, install it and enable **Bing Wallpapers**.
-4. Wait until the plugin reports that photos are available.
-5. Under **Screensaver**, choose **Slideshow (Bing Wallpapers)**.
+### Community Plugins (Recommended)
+
+Bing Wallpapers is listed in [Community Plugins](https://kiosksatellite.com/plugins/). Use the button below to open it in your Kiosk Satellite and install it.
+
+[![Install in Kiosk Satellite](https://kiosksatellite.com/img/badges/plugin-add.svg)](https://kiosksatellite.com/redirect/plugin/?repository=hmmbob/kiosk-satellite-bing-wallpapers)
+
+Or search for `Bing Wallpapers` in **Settings > Plugin Manager > Browse plugins** in Kiosk Satellite.
+
+### Manual
+
+1. Open **Settings > Plugin Manager** in Kiosk Satellite and turn on **Enable Plugins**.
+2. Choose **Add plugin**, paste `https://github.com/hmmbob/kiosk-satellite-bing-wallpapers` and choose **Preview**.
+3. Review the plugin and choose **Trust and install**.
+
+### Start the screensaver
+
+1. Enable **Bing Wallpapers** in Plugin Manager.
+2. Wait until the plugin reports that photos are available.
+3. Under **Screensaver**, choose **Slideshow (Bing Wallpapers)**.
 
 If the option is missing in the web interface, refresh the page once. KS 2026.10.31 does not update this list when a plugin adds a screensaver.
 
@@ -31,6 +45,12 @@ KS continues to control when the screensaver starts and stops. To stop using thi
 ## Network access
 
 The plugin downloads the photo list and images directly from `https://www.bing.com`. Requests include the selected Bing region and photo count. The plugin does not send Home Assistant data or collect analytics.
+
+## Saved photos
+
+Photos are saved in `bing-runtime-cache` inside the plugin's installed package directory, alongside `assets/`. KS does not yet provide a dedicated cache API, so this location depends on its current installation layout. Updates or uninstalling can clear the saved photos. If the plugin cannot create this folder, it keeps photos in memory; an internet connection is then needed again after a restart.
+
+Photos no longer in the latest successfully retrieved feed are removed automatically. If Bing cannot be reached, the last saved photos remain available.
 
 ## Updates
 

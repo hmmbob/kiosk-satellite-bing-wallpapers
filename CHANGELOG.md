@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.0.2
+
+- Add the Community Plugins installation button and updated installation steps.
+- Include "screensaver" in the plugin description so it can be found by searching for screensavers.
+- Explain where photos are saved and what happens if persistent storage is unavailable.
+- Replace the outdated User-Agent with the plugin name and repository URL, without a hardcoded version.
+
 ## 1.0.1
 
 - Explain network access in the installation README for Community Plugins review.
