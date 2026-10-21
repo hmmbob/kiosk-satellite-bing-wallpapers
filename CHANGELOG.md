@@ -1,5 +1,9 @@
 # Changelog
 
+## Unreleased
+
+- Update installation instructions: KS 2026.10.33 fixes the screensaver list refresh issue; older versions may still need a page refresh.
+
 ## 1.0.2
 
 - Add the Community Plugins installation button and updated installation steps.
