@@ -33,7 +33,7 @@ interface Http {
                     if (closed) throw new InterruptedIOException("Stopped");
                     c.setConnectTimeout(10000); c.setReadTimeout(15000);
                     c.setInstanceFollowRedirects(false);
-                    c.setRequestProperty("User-Agent", "KioskSatellite-BingScreensaver/0.3");
+                    c.setRequestProperty("User-Agent", "KioskSatellite-BingWallpapers (+https://github.com/hmmbob/kiosk-satellite-bing-wallpapers)");
                     c.setRequestProperty("Accept", "application/json,image/jpeg,*/*;q=0.5");
                     int code = c.getResponseCode();
                     if (code >= 300 && code < 400) {
