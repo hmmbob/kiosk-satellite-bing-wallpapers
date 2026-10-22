@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "id": "kiosk-satellite-bing-wallpapers",
   "name": "Bing Wallpapers",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "apiVersion": 1,
   "minAndroidSdk": 24,
   "entryClass": "kiosk.plugins.bing.BingPlugin",
@@ -49,6 +49,7 @@
     {
       "key": "interval",
       "type": "number",
+      "input": "field",
       "title": "Time per photo",
       "default": 60,
       "min": 5,
