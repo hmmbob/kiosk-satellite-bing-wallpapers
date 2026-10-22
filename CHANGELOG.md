@@ -2,6 +2,11 @@
 
 ## Unreleased
 
+## 1.0.4
+
+- Explain the allowed range and 5-second steps for **Time per photo**, with a minutes example in the setting's help text.
+- Clarify photo refresh timing and replacement of photos outside the latest selection, and explain where captions appear.
+
 ## 1.0.3
 
 - Let users type **Time per photo** in KS 2026.10.35 and newer. Older KS versions keep the slider. Preserve the 60-second default, 5–3600-second range, 5-second steps and saved values.
