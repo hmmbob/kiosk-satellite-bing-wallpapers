@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+## 1.0.3
+
+- Let users type **Time per photo** in KS 2026.10.35 and newer. Older KS versions keep the slider. Preserve the 60-second default, 5–3600-second range, 5-second steps and saved values.
+- Present all settings, defaults and options in a table in the README.
 - Update installation instructions: KS 2026.10.33 fixes the screensaver list refresh issue; older versions may still need a page refresh.
 
 ## 1.0.2

@@ -34,11 +34,18 @@ An internet connection is needed for the first download and after a plugin updat
 
 ## Make it yours
 
-- **Number of photos:** choose 1 to 8 recent photos. Bing may provide fewer.
-- **Time per photo:** choose how long each photo stays on screen.
-- **Bing region:** choose a region for the photos and captions. Different regions may show the same photos. Captions may be in English.
-- **Fit to screen:** fill the screen or show the whole photo.
-- **Show caption and photo credit:** show Bing's description and credit at the bottom of the screen.
+| Setting | Default | Options |
+| --- | --- | --- |
+| **Number of photos** | 7 | 1 to 8 recent photos. Bing may provide fewer. |
+| **Bing region** | United States | Choose a region for the photos and captions. Different regions may show the same photos. Captions may be in English. |
+| **Check for new photos every** | 24 hours | 1 to 48 hours. Saved photos remain available without internet. |
+| **Time per photo** | 60 seconds | 5 to 3600 seconds, in steps of 5, such as 300 or 900. |
+| **Photo order** | Newest first | Newest first or Random order. |
+| **Fit to screen** | Fill screen | Fill screen may crop the edges. Show whole photo may leave black bars. |
+| **Show caption and photo credit** | Off | Show Bing's description and credit at the bottom of the screen. |
+| **Downloaded photo width** | 1280 px | 1280 or 1920 px. Choose 1920 for larger screens; 1280 uses less data. |
+
+KS 2026.10.35 and newer let you type **Time per photo**. Older versions show a slider. Saved settings are retained on update.
 
 KS continues to control when the screensaver starts and stops. To stop using this plugin, choose another screensaver and disable **Bing Wallpapers**.
 
