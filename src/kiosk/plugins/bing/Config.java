@@ -8,14 +8,15 @@ final class Config {
     static final String[] MARKETS = {"en-US", "en-GB", "nl-NL", "de-DE", "fr-FR", "en-AU", "en-CA", "ja-JP", "zh-CN"};
     final int count, interval, hours, width;
     final String market;
-    final boolean contain, shuffle, caption;
+    final boolean contain, blurredBackground, shuffle, caption;
     Config(Map<String, Object> s) {
         count = number(s.get("count"), 7, 1, 8);
         interval = number(s.get("interval"), 60, 5, 3600);
         hours = number(s.get("refreshHours"), 24, 1, 48);
         width = "1920".equals(s.get("resolution")) ? 1920 : 1280;
         market = Arrays.asList(MARKETS).contains(s.get("market")) ? (String)s.get("market") : "en-US";
-        contain = "Whole image".equals(s.get("fit"));
+        blurredBackground = "Blurred background".equals(s.get("fit"));
+        contain = "Whole image".equals(s.get("fit")) || blurredBackground;
         shuffle = "Shuffle".equals(s.get("order"));
         caption = Boolean.TRUE.equals(s.get("caption"));
     }

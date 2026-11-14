@@ -6,7 +6,7 @@ Show recent Bing photos as a screensaver slideshow on your kiosk. Choose how man
 
 ## Installation
 
-Requires Android 7 or newer and [Kiosk Satellite](https://kiosksatellite.com/) with plugin support. Compatibility was checked against KS 2026.10.31.
+Requires Android 7 or newer and [Kiosk Satellite](https://kiosksatellite.com/) with plugin support.
 
 ### Community Plugins (Recommended)
 
@@ -41,7 +41,7 @@ An internet connection is needed for the first download and after a plugin updat
 | **Check for new photos every** | 24 hours | 1 to 48 hours. Saved photos remain available without internet. |
 | **Time per photo** | 60 seconds | 5 to 3600 seconds, in steps of 5, such as 300 or 900. |
 | **Photo order** | Newest first | Newest first or Random order. |
-| **Fit to screen** | Fill screen | Fill screen may crop the edges. Show whole photo may leave black bars. |
+| **Fit to screen** | Fill screen | Fill screen may crop the edges. Show whole photo may leave black bars. Show whole photo with blurred background fills those areas with a blurred, darkened copy of the photo. |
 | **Show caption and photo credit** | Off | Show Bing's description and credit at the bottom of the screen. |
 | **Downloaded photo width** | 1280 px | 1280 or 1920 px. Choose 1920 for larger screens; 1280 uses less data. |
 
@@ -67,7 +67,9 @@ To update, open the installed plugin's repository entry in Plugin Manager, revie
 
 For local testing, download the plugin ZIP from [Releases](https://github.com/hmmbob/kiosk-satellite-bing-wallpapers/releases). In KS, open **Plugin Manager → Developer Tools → Install from ZIP**, select the ZIP without extracting it, and then enable the plugin.
 
-If you installed the plugin from GitHub, you must uninstall it before installing a ZIP. Uninstalling deletes the plugin's settings.
+A production ZIP has the same identity as the GitHub installation, so switching between those requires uninstalling the existing plugin and deletes its settings.
+
+A locally built **Bing Wallpapers (Test)** ZIP has its own identity and can be installed alongside the production plugin without uninstalling it. Enable the test plugin and select the test plugin’s **Slideshow (Test)** in Screensaver. Its settings and saved photos are separate. See [developer notes](docs/DEVELOPMENT.md) for building it.
 
 ## Development and credits
 

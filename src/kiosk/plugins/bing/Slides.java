@@ -10,9 +10,14 @@ final class Slides {
         String html="<!doctype html><html><head><meta charset='utf-8'><meta name='viewport' content='width=device-width,initial-scale=1'>"
             +"<style>html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#000}"
             +"img{display:block;width:100%;height:100%;object-fit:"+(c.contain?"contain":"cover")+"}"
+            +".blur,.photo{position:absolute;top:0;right:0;bottom:0;left:0;background-image:var(--photo);background-position:center;background-repeat:no-repeat}"
+            +".blur{background-size:cover;-webkit-filter:blur(18px) brightness(.7);filter:blur(18px) brightness(.7);-webkit-transform:scale(1.1);transform:scale(1.1)}"
+            +".photo{background-size:contain}"
             +"p{position:absolute;bottom:2vh;right:2vw;max-width:88vw;margin:0;padding:.4em .7em;border-radius:.3em;"
             +"background:rgba(0,0,0,.55);color:#fff;font:clamp(11px,2.2vmin,22px) sans-serif;text-align:right}</style></head>"
-            +"<body><img alt='' src='data:image/jpeg;base64,"+base64(bytes)+"'>"
+            +(c.blurredBackground
+                ? "<body style=\"--photo:url('data:image/jpeg;base64,"+base64(bytes)+"')\"><div class='blur'></div><div class='photo'></div>"
+                : "<body><img alt='' src='data:image/jpeg;base64,"+base64(bytes)+"'>")
             +(c.caption?"<p>"+escape(p.caption)+"</p>":"")+"</body></html>";
         if(html.getBytes(StandardCharsets.UTF_8).length>LIMIT) throw new IllegalArgumentException("Screensaver document too large");
         return html;

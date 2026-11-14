@@ -12,6 +12,7 @@ import me.jxl.kiosk.plugins.PluginHost;
 
 public final class PluginTest {
     static int assertions;
+    static boolean testBuild;
     static void check(boolean ok,String message) { assertions++; if(!ok) throw new AssertionError(message); }
     static Map<String,Object> settings(Object... pairs) {
         Map<String,Object> m=new HashMap<>(); for(int i=0;i<pairs.length;i+=2) m.put((String)pairs[i],pairs[i+1]); return m;
@@ -64,7 +65,9 @@ public final class PluginTest {
     }
     static void unitTests(Path temp) throws Exception {
         Config defaults=new Config(settings());
-        check(defaults.count==7 && defaults.interval==60 && defaults.hours==24,"defaults");
+        check(defaults.count==7 && defaults.interval==60 && defaults.hours==24 && !defaults.contain && !defaults.blurredBackground,"defaults");
+        check(!new Config(settings("fit","Fill screen")).contain && !new Config(settings("fit","unknown")).contain,"fill and unknown values retain cover behavior");
+        check(new Config(settings("fit","Blurred background")).contain && new Config(settings("fit","Blurred background")).blurredBackground,"blurred setting selects whole photo");
         Config clamped=new Config(settings("count",100,"interval",Double.NaN,"refreshHours",0,"market","evil.com","fit","Whole image"));
         check(clamped.count==8 && clamped.interval==60 && clamped.hours==1 && clamped.market.equals("en-US") && clamped.contain,"settings validation");
         List<Bing.Photo> photos=Bing.parse(archive(10),defaults);
@@ -94,6 +97,18 @@ public final class PluginTest {
         String html=Slides.document(photos.get(0),image(1,Bing.MAX_IMAGE),new Config(settings("caption",true,"fit","Whole image")));
         check(html.getBytes(StandardCharsets.UTF_8).length<Slides.LIMIT && html.contains("object-fit:contain") && html.contains("&lt;credit&gt;"),"large image and escaped caption");
         check(!html.contains("https:") && !html.contains("<script"),"renderer needs no network or scripts");
+        String blurred=Slides.document(photos.get(0),image(1,Bing.MAX_IMAGE),new Config(settings("caption",true,"fit","Blurred background")));
+        check(blurred.getBytes(StandardCharsets.UTF_8).length<=Slides.LIMIT,"maximum image fits in blurred document");
+        check(blurred.indexOf("data:image/jpeg;base64,")>=0 && blurred.indexOf("data:image/jpeg;base64,")==blurred.lastIndexOf("data:image/jpeg;base64,"),"blurred document embeds the photo once");
+        check(blurred.contains("background-image:var(--photo)") && blurred.contains("background-size:cover") && blurred.contains("background-size:contain") && blurred.contains("-webkit-filter:blur(18px) brightness(.7)"),"blurred background and sharp contained foreground");
+        check(blurred.indexOf("class='photo'")<blurred.indexOf("<p>") && blurred.contains("&amp; &lt;credit&gt;"),"escaped caption follows photo layers");
+        check(!blurred.contains("https:") && !blurred.contains("<script"),"blurred renderer stays offline");
+        check(!Slides.document(photos.get(0),small,new Config(settings("fit","Blurred background"))).contains("<p>"),"disabled caption is omitted");
+        for(byte[] bad:new byte[][] {new byte[] {1,2}, image(1,Bing.MAX_IMAGE+1)}) {
+            boolean invalid=false; try { Slides.document(photos.get(0),bad,new Config(settings("fit","Blurred background"))); } catch(IllegalArgumentException e) { invalid=true; }
+            check(invalid,"blurred renderer rejects invalid or oversized JPEG");
+        }
+        System.out.println("Maximum JPEG test document: "+blurred.getBytes(StandardCharsets.UTF_8).length+" bytes (limit "+Slides.LIMIT+")");
         Cache cache=new Cache(temp.resolve("cache").toFile());
         cache.commit(defaults,photos.subList(0,1),0);
         cache.put(photos.get(0),small); cache.commit(defaults,photos.subList(0,1),123);
@@ -133,7 +148,8 @@ public final class PluginTest {
         try {
             await(()->host.status.contains("3 photos available"),"all three images downloaded");
             await(()->host.last().contains("data:image/jpeg"),"first photo has actually been published");
-            check("Slideshow".equals(host.modeTitle) && "bing".equals(host.modeKey),"distinct mode title preserves saved mode key");
+            check((testBuild?"Slideshow (Test)":"Slideshow").equals(host.modeTitle) && "bing".equals(host.modeKey),"build publishes the expected title and stable mode key");
+            check(BingPlugin.MODE.equals(testBuild?"plugin:kiosk-satellite-bing-wallpapers-test:bing":"plugin:kiosk-satellite-bing-wallpapers:bing"),"runtime mode matches the installed build identity");
             check(network.images.get()==3,"initial prefetch stores every photo");
             check(host.subscriptions.size()==3,"host state subscriptions");
             String first=host.last(); await(()->!host.last().equals(first),"timer advances without another download");
@@ -145,9 +161,13 @@ public final class PluginTest {
             plugin.execute("next",settings()); await(()->!host.last().equals(off),"offline next photo uses cache");
             plugin.configure(settings("count",3,"interval",5,"fit","Whole image","caption",true));
             await(()->host.last().contains("object-fit:contain") && host.last().contains("&lt;credit&gt;"),"settings redraw current photo");
+            int downloads=network.images.get();
+            plugin.configure(settings("count",3,"interval",5,"fit","Blurred background","caption",true));
+            await(()->host.last().contains("class='blur'") && host.last().contains("&lt;credit&gt;"),"blurred setting redraws current photo");
+            check(network.images.get()==downloads,"switching fit uses the cached photo");
             plugin.onEvent("ks.screen.state",settings("on",true));
-            plugin.onEvent("ks.screensaver.view",settings("view","clock")); Thread.sleep(200);
-            String clock=host.last(); Thread.sleep(5500); check(host.last().equals(clock),"other screensaver mode pauses slideshow");
+            plugin.onEvent("ks.screensaver.view",settings("view",testBuild?"plugin:kiosk-satellite-bing-wallpapers:bing":"plugin:kiosk-satellite-bing-wallpapers-test:bing")); Thread.sleep(200);
+            String clock=host.last(); Thread.sleep(5500); check(host.last().equals(clock),"other build screensaver mode pauses slideshow");
             plugin.onEvent("ks.screensaver.view",settings("view",BingPlugin.MODE));
             await(()->!host.last().equals(clock),"returning to Bing resumes after interval");
             network.offline=false; network.blocked=true; plugin.execute("refresh",settings());
@@ -163,6 +183,8 @@ public final class PluginTest {
         } finally { again.stop(); }
     }
     public static void main(String[] args) throws Exception {
+        if(args.length!=1 || !(args[0].equals("test") || args[0].equals("production"))) throw new IllegalArgumentException("Expected build identity");
+        testBuild=args[0].equals("test");
         Path temp=Files.createTempDirectory("bing-test-cache-");
         try { unitTests(temp); lifecycle(temp); configurationRace(temp); CacheTest.run(temp); PublicationTest.run(temp); TextsTest.run(temp); System.out.println("PASS: "+assertions+" assertions (archive, bounds, rendering, disk cache, timing, offline, lifecycle, settings races, feed reconciliation, publication pacing, English texts)"); }
         finally { try(java.util.stream.Stream<Path> paths=Files.walk(temp)) { paths.sorted(Comparator.reverseOrder()).forEach(p->{try {Files.delete(p);}catch(IOException e){throw new UncheckedIOException(e);}}); } }

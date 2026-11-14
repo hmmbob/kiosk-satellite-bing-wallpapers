@@ -9,7 +9,7 @@ import me.jxl.kiosk.plugins.PluginHost;
 
 /** SDK callbacks enqueue work; network I/O never holds up the slideshow or KS. */
 public final class BingPlugin implements KioskPlugin {
-    static final String MODE="plugin:kiosk-satellite-bing-wallpapers:bing";
+    static final String MODE="plugin:"+BuildIdentity.PLUGIN_ID+":bing";
     private final Http http;
     private volatile boolean stopped=true;
     private volatile Config config;
@@ -256,7 +256,7 @@ public final class BingPlugin implements KioskPlugin {
         String html=pendingDocument;
         nextPublication=now()+300;
         try {
-            host.publishScreensaver("bing",texts.get("mode"),html);
+            host.publishScreensaver("bing",texts.get("mode")+(BuildIdentity.TEST?" (Test)":""),html);
             lastDocument=html; pendingDocument=null;
         } catch(RuntimeException error) {
             diagnostic("Cannot publish screensaver",error); status(texts.get("publishError"),true);

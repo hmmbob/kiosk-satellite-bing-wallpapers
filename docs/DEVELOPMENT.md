@@ -28,7 +28,7 @@ If the persistent directory cannot be created, the plugin reports that photos co
 
 The Java plugin fetches the archive and images from `https://www.bing.com`. Only that HTTPS host is allowed, including redirects. No HA credentials, tracking or analytics are used.
 
-The renderer is a self-contained HTML document with one embedded JPEG. It makes no network requests and stays within KS's 512 KiB inline-document limit. There is no crossfade or animated zoom.
+The renderer is a self-contained HTML document with one embedded JPEG. It makes no network requests and stays within KS's 512 KiB inline-document limit. The blurred-background fit uses one CSS custom property containing the JPEG for both background layers; the rear layer is enlarged, blurred and darkened, and the front layer shows the entire sharp photo. CSS custom properties require WebView based on Chromium 49 or newer; the filter also has a prefixed declaration. Visual output and performance on individual Android 7 devices still need device testing. Captions are painted above both layers. There is no crossfade or animated zoom.
 
 At most eight compressed images are held for the slideshow, plus temporary download and rendering buffers. The plugin does not decode all of them into bitmaps at once.
 
@@ -42,7 +42,9 @@ Use Python 3, JDK 17 or newer, and Android SDK platform/build-tools 35. Set `JAV
 
 ```text
 python tools/test.py
+python tools/test.py --test
 python tools/build.py --android-platform 35
+python tools/build.py --test --version 1.0.5-preview.1 --android-platform 35
 ```
 
 Tests cover parsing, image limits, escaping, cache recovery, repeated and partial feed changes, empty/malformed feeds, disk-write limits, cleanup failure, offline restart, timers, settings races, publication pacing, English messages and choices with stable stored values.
@@ -53,11 +55,13 @@ An optional live smoke test downloads and decodes the current feed:
 
 ```text
 python tools/test.py /path/to/temporary-smoke-output
+# Or exercise the test identity:
+python tools/test.py --test /path/to/temporary-smoke-output
 ```
 
 Its downloaded photographs and HTML pages are test output and must not be included in a release.
 
-The build produces the plugin ZIP, a matching manifest and SHA-256 checksum under `dist/`. SDK classes are compile-time dependencies and are not bundled in the plugin's DEX.
+The production build produces the plugin ZIP, a matching manifest and SHA-256 checksum under `dist/`. Test builds use the separate ID `kiosk-satellite-bing-wallpapers-test` and name `Bing Wallpapers (Test)`, with output under `dist/test/`; they can be installed alongside production. The test screensaver title is `Slideshow (Test)`. Prerelease versions require `--test`, preventing an accidental production-identity preview. SDK classes are compile-time dependencies and are not bundled in the plugin's DEX.
 
 ## Publishing
 
