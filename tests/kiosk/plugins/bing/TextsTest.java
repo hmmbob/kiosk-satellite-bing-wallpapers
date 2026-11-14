@@ -29,11 +29,12 @@ final class TextsTest {
             plugin.start(host,settings("count",3,"fit","Whole image","order","Shuffle","caption",true));
             try {
                 await(()->host.last().contains(text.get("loading")),"English initial message before downloads finish");
-                check(host.modeTitle.equals(text.get("mode")) && host.modeKey.equals("bing"),"mode retains stable key");
+                check(host.modeTitle.equals(text.get("mode")+(testBuild?" (Test)":"")) && host.modeKey.equals("bing"),"mode retains stable key");
                 check(host.last().contains("lang=\"en\""),"HTML language is English");
                 await(()->host.choices.size()==3,"all labelled choices registered");
                 check(host.choices.get("order").keySet().equals(new HashSet<>(Arrays.asList("Newest first","Shuffle"))),"order values retain old saved settings");
                 check(host.choices.get("fit").get("Whole image").equals("Show whole photo"),"readable fit label keeps legacy value");
+                check(host.choices.get("fit").keySet().equals(new HashSet<>(Arrays.asList("Fill screen","Whole image","Blurred background"))) && host.choices.get("fit").get("Blurred background").equals("Show whole photo with blurred background"),"fit options retain old values and expose the new label");
                 check(host.choices.get("market").get("nl-NL").equals("Netherlands"),"readable country name");
                 network.blocked=false;
                 await(()->host.status.equals(text.ready(3)),"English ready status");

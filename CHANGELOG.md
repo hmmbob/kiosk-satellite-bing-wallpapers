@@ -2,6 +2,13 @@
 
 ## Unreleased
 
+## 1.0.5
+
+- Add a fit option that shows the whole photo over a blurred background.
+- Keep the original production plugin ID, screensaver mode and saved settings.
+- Add a separate test-build identity so preview ZIPs can be installed alongside production.
+- Remove the outdated KS compatibility-check sentence from the installation instructions.
+
 ## 1.0.4
 
 - Explain the allowed range and 5-second steps for **Time per photo**, with a minutes example in the setting's help text.

@@ -23,7 +23,8 @@
     },
     "fit": {
       "Fill screen": "Fill screen",
-      "Whole image": "Show whole photo"
+      "Whole image": "Show whole photo",
+      "Blurred background": "Show whole photo with blurred background"
     },
     "market": {
       "en-US": "United States",
