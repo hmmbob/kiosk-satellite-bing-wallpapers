@@ -72,7 +72,13 @@ The repository uses the [official KS release workflow](https://github.com/jxlarr
 3. Let the **Release** workflow test and build the tagged source. It uploads `kiosk-satellite-plugin.json`, `<id>-<version>.zip` and `<id>-<version>.zip.sha256`.
 4. Verify the workflow succeeded and all three assets were uploaded by `github-actions[bot]`. Do not upload them manually or with a personal access token: KS rejects those uploads.
 
-The release tag supplies the package version. The standalone and packaged manifests must be identical. For an interrupted build, retry the workflow on the existing release tag. Publish a new version for code or package changes.
+The release tag supplies the package version. The standalone and packaged manifests must be identical. Publish a new version for code or package changes.
+
+CI and Release independently validate the finished files with `python tools/validate_package.py dist` before they can be published. This checks the SDK 1 manifest fields and setting types used by this plugin, byte-identical manifests, the checksum, archive contents and limits, the icon, DEX headers/checksums/class tables, the entry class, and the absence of bundled SDK or platform classes. New manifest fields or setting types are rejected until their validation is added. This does not replace installation or device testing.
+
+Release runs for the same tag are serialized. The uploader checks all three existing asset names before uploading anything. Identical completed `github-actions[bot]` uploads are kept; only missing files are uploaded. A conflicting, incomplete or manually uploaded asset stops the run without replacing any files. Older assets without GitHub digest metadata are downloaded for comparison. Every upload is made without `--clobber`, and the complete asset set is checked again afterward.
+
+For an interrupted release, retry the workflow on the existing release tag. This can complete missing uploads only if existing files match the new build exactly. Toolchain changes can alter a rebuild; if any bytes differ, publish a new version instead of replacing the original assets.
 
 See the [KS publication requirements](https://github.com/jxlarrea/kiosk-satellite-plugins/blob/2260f801f047dab06a1ca0c1c4f7bec926cb73b1/docs/creating-plugins.md#repository-and-release). A public repository release does not submit the plugin to the KS community database.
 

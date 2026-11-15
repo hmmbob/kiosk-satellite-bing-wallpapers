@@ -37,3 +37,5 @@ jobs:
           python3 tools/test.py --test
       - name: Build
         run: python3 tools/build.py --android-platform 35
+      - name: Validate release package
+        run: python3 tools/validate_package.py dist
